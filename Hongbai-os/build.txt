@@ -1,0 +1,10 @@
+nasm -I include/ -o root/mbr.bin root/mbr.S
+dd if=/home/hongbai/bochs/root/mbr.bin of=/home/hongbai/bochs/bin/os_hd_60M.img bs=512 count=1 conv=notrunc
+
+nasm -I include/ -o root/loader.bin root/loader.S
+dd if=/home/hongbai/bochs/root/loader.bin of=/home/hongbai/bochs/bin/os_hd_60M.img bs=512 count=4 seek=2 conv=notrunc
+
+make all
+./bochs -f ./bin/bochsrc
+
+sh xxd.sh ./bin/file_hd_80M.img 1363456 512
